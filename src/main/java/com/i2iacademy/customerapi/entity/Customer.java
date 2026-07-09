@@ -8,9 +8,10 @@ import jakarta.persistence.*;
 @Table(name = "CUSTOMER")
 public class Customer {
 
-    // Primary key, auto-incremented by the database (IDENTITY strategy)
+    // Primary key generated via a database sequence (more reliable than IDENTITY with Oracle JDBC driver)
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "customer_seq")
+    @SequenceGenerator(name = "customer_seq", sequenceName = "CUSTOMER_SEQ", allocationSize = 1)
     private Long id;
 
     @Column(name = "FIRST_NAME", nullable = false, length = 50)
